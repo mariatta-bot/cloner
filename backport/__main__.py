@@ -23,16 +23,16 @@ async def main(request):
         secret = os.environ.get("GH_SECRET")
         event = sansio.Event.from_http(request.headers, body, secret=secret)
         print('GH delivery ID', event.delivery_id, file=sys.stderr)
-        # if event.event == "ping":
-        #     return web.Response(status=200)
-        # oauth_token = os.environ.get("GH_AUTH")
-        # async with aiohttp.ClientSession() as session:
-        #     gh = gh_aiohttp.GitHubAPI(session, "mariatta/strange-relationship",
-        #                               oauth_token=oauth_token,
-        #                               cache=cache)
-        #     # Give GitHub some time to reach internal consistency.
-        #     await asyncio.sleep(1)
-        #     await router.dispatch(event, gh)
+        if event.event == "ping":
+            return web.Response(status=200)
+        oauth_token = os.environ.get("GH_AUTH")
+        async with aiohttp.ClientSession() as session:
+            gh = gh_aiohttp.GitHubAPI(session, "mariatta/strange-relationship",
+                                      oauth_token=oauth_token,
+                                      cache=cache)
+            # Give GitHub some time to reach internal consistency.
+            await asyncio.sleep(1)
+            await router.dispatch(event, gh)
         return web.Response(status=200)
     except Exception as exc:
         traceback.print_exc(file=sys.stderr)
