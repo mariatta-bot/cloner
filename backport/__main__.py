@@ -20,7 +20,12 @@ cache = cachetools.LRUCache(maxsize=500)
 async def main(request):
     try:
         body = await request.read()
+        print(os.listdir('.'))
+        os.chdir("./strange-relationship")
+        print(os.listdir('.'))
+
         secret = os.environ.get("GH_SECRET")
+        print(secret[:5])
         event = sansio.Event.from_http(request.headers, body, secret=secret)
         print('GH delivery ID', event.delivery_id, file=sys.stderr)
         if event.event == "ping":
