@@ -24,10 +24,13 @@ async def main(request):
         body = await request.read()
         print(os.listdir('.'))
         if not os.path.isdir("tic_tac_taco_pizza"):
+            print("cloning")
             subprocess.check_output("git clone https://github.com/mariatta/tic_tac_taco_pizza".split())
         os.chdir('tic_tac_taco_pizza')
         print(os.listdir('.'))
         subprocess.check_output("git remote --v".split())
+        print("done check output")
+        subprocess.check_output("git log 8ccc723920ee001fea48f5ede8b721c7f96f473d".split())
         os.chdir('..')
 
         secret = os.environ.get("GH_SECRET")
