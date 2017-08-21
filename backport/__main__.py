@@ -23,13 +23,13 @@ async def main(request):
     try:
         body = await request.read()
         print(os.listdir('.'))
-        os.chdir("./cpython")
+        subprocess.check_output("git clone https://github.com/mariatta/tic_tac_taco_pizza".split())
+        os.chdir('tic_tac_taco_pizza')
         print(os.listdir('.'))
         subprocess.check_output("git remote --v".split())
         os.chdir('..')
 
         secret = os.environ.get("GH_SECRET")
-        print(secret[:5])
         # event = sansio.Event.from_http(request.headers, body, secret=secret)
         # print('GH delivery ID', event.delivery_id, file=sys.stderr)
         # if event.event == "ping":
