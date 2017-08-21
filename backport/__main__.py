@@ -20,9 +20,9 @@ cache = cachetools.LRUCache(maxsize=500)
 async def main(request):
     try:
         body = await request.read()
-        # secret = os.environ.get("GH_SECRET")
-        # event = sansio.Event.from_http(request.headers, body, secret=secret)
-        # print('GH delivery ID', event.delivery_id, file=sys.stderr)
+        secret = os.environ.get("GH_SECRET")
+        event = sansio.Event.from_http(request.headers, body, secret=secret)
+        print('GH delivery ID', event.delivery_id, file=sys.stderr)
         # if event.event == "ping":
         #     return web.Response(status=200)
         # oauth_token = os.environ.get("GH_AUTH")
