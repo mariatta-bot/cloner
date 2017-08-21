@@ -7,7 +7,7 @@ router = gidgethub.routing.Router()
 @router.register("pull_request", action="opened")
 async def backport_pr(event, gh, *args, **kwargs):
     print(os.listdir('.'))
-    os.chdir("./cpython")
+    os.chdir("./strange-relationship")
     print(os.listdir('.'))
     print(event)
     print(gh)
