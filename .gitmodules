@@ -1,3 +1,6 @@
 [submodule "cpython"]
 	path = cpython
 	url = https://github.com/Mariatta/cpython
+[submodule "strange-relationship"]
+	path = strange-relationship
+	url = http://github.com/mariatta/strange-relationship
