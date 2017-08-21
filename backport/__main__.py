@@ -23,6 +23,7 @@ async def main(request):
         print(os.listdir('.'))
         os.chdir("./strange-relationship")
         print(os.listdir('.'))
+        os.chdir('..')
 
         secret = os.environ.get("GH_SECRET")
         print(secret[:5])
