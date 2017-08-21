@@ -23,7 +23,8 @@ async def main(request):
     try:
         body = await request.read()
         print(os.listdir('.'))
-        subprocess.check_output("git clone https://github.com/mariatta/tic_tac_taco_pizza".split())
+        if not os.path.isdir("tic_tac_taco_pizza"):
+            subprocess.check_output("git clone https://github.com/mariatta/tic_tac_taco_pizza".split())
         os.chdir('tic_tac_taco_pizza')
         print(os.listdir('.'))
         subprocess.check_output("git remote --v".split())
