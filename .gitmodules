@@ -1,0 +1,3 @@
+[submodule "strange-relationship"]
+	path = strange-relationship
+	url = git@github.com:Mariatta/strange-relationship.git
