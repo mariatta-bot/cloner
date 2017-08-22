@@ -25,15 +25,18 @@ async def main(request):
         print(os.listdir('.'))
         if not os.path.isdir("tic_tac_taco_pizza"):
             print("cloning")
-            subprocess.check_output("git clone https://github.com/mariatta/tic_tac_taco_pizza".split())
+            result = subprocess.check_output("git clone https://github.com/mariatta/tic_tac_taco_pizza".split())
+
+            print(result.decode('utf-8'))
         os.chdir('tic_tac_taco_pizza')
         print(os.listdir('.'))
-        subprocess.check_output("git remote --v".split())
+        print(subprocess.check_output("git remote --v".split()).decode('utf-8'))
         print("done check output")
-        subprocess.check_output("git log 8ccc723920ee001fea48f5ede8b721c7f96f473d".split())
+        print(subprocess.check_output("git log 8ccc723920ee001fea48f5ede8b721c7f96f473d".split()).decode('utf-8'))
         os.chdir('..')
 
         secret = os.environ.get("GH_SECRET")
+        print(request.headers)
         # event = sansio.Event.from_http(request.headers, body, secret=secret)
         # print('GH delivery ID', event.delivery_id, file=sys.stderr)
         # if event.event == "ping":
