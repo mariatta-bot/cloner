@@ -29,12 +29,7 @@ async def main(request):
         #
         #     print(result.decode('utf-8'))
         os.chdir('strange-relationship')
-        # print(os.listdir('.'))
-        print(subprocess.check_output("git init .".split()).decode('utf-8'))
-        print(subprocess.check_output("git remote add origin https://github.com/mariatta/strange-relationship.git".split()).decode('utf-8'))
-        print(subprocess.check_output("git remote add upstream https://github.com/mariatta/strange-relationship.git".split()).decode('utf-8'))
-        # result = subprocess.check_output("git remote add upstream https://github.com/mariatta/cpython.git".split())
-        # print(result.decode('utf-8'))
+        print(os.listdir('.'))
         print(subprocess.check_output("git remote --v".split()).decode('utf-8'))
         # print("done check output")
         # print(subprocess.check_output("git log 8ccc723920ee001fea48f5ede8b721c7f96f473d".split()).decode('utf-8'))
@@ -81,6 +76,7 @@ def set_remotes():
     print(subprocess.check_output(
         "git remote add upstream https://github.com/mariatta/strange-relationship.git".split()).decode(
         'utf-8'))
+    os.chdir('..')
 
 
 if __name__ == "__main__":  # pragma: no cover
