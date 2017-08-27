@@ -28,7 +28,7 @@ async def main(request):
         #     result = subprocess.check_output("git clone https://github.com/mariatta/cpython.git".split())
         #
         #     print(result.decode('utf-8'))
-        os.chdir('strange-relationship')
+        os.chdir('cpython')
         print(os.listdir('.'))
         print(subprocess.check_output("git remote --v".split()).decode('utf-8'))
         # print("done check output")
@@ -67,14 +67,14 @@ async def clone_cpython():
         print(result.decode('utf-8'))
 
 def set_remotes():
-    os.chdir('strange-relationship')
+    os.chdir('cpython')
     # print(os.listdir('.'))
     print(subprocess.check_output("git init .".split()).decode('utf-8'))
     print(subprocess.check_output(
-        "git remote add origin https://github.com/mariatta/strange-relationship.git".split()).decode(
+        "git remote add origin https://github.com/mariatta/cpython.git".split()).decode(
         'utf-8'))
     print(subprocess.check_output(
-        "git remote add upstream https://github.com/mariatta/strange-relationship.git".split()).decode(
+        "git remote add upstream https://github.com/mariatta/cpython.git".split()).decode(
         'utf-8'))
     os.chdir('..')
 
