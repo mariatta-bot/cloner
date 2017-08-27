@@ -55,20 +55,21 @@ async def main(request):
         traceback.print_exc(file=sys.stderr)
         return web.Response(status=500)
 
-async def clone_cpython():
+def clone_cpython():
     if not os.path.isdir("cpython"):
         print("cloning")
-        await subprocess.check_output(
+        result = subprocess.check_output(
             "git clone https://github.com/mariatta/cpython.git".split())
 
-        # print(result.decode('utf-8'))
+        print(result.decode('utf-8'))
 
 if __name__ == "__main__":  # pragma: no cover
+    clone_cpython()
     app = web.Application()
     app.router.add_post("/", main)
     port = os.environ.get("PORT")
     if port is not None:
         port = int(port)
     web.run_app(app, port=port)
-    clone_cpython()
+
 
