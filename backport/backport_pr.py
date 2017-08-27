@@ -23,7 +23,7 @@ async def backport_pr(event, gh, *args, **kwargs):
         print(f"is merged {event.data['pull_request']['merged']}")
         print(f"commit hash {event.data['pull_request']['merge_commit_sha']}")
         issue = await gh.getitem(event.data['repository']['issues_url'],
-                                             {'number': event.data['pull_request']['number']})
+                                             {'number': f"{event.data['pull_request']['number']}"})
         print("ISSUES")
         print(issue)
         print("LABELS")
