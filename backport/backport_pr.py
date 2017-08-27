@@ -28,4 +28,6 @@ async def backport_pr(event, gh, *args, **kwargs):
         print(issue)
         print("LABELS")
         labels = await gh.getitem(issue['labels_url'])
-        print(labels)
+        branches = [label['name'].split()[-1] for label in labels if label['name'].startswith("needs backport to")]
+        print(branches)
+
