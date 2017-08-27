@@ -6,9 +6,12 @@ router = gidgethub.routing.Router()
 
 @router.register("pull_request", action="opened")
 async def backport_pr(event, gh, *args, **kwargs):
-    print(os.listdir('.'))
-    os.chdir("./cpython")
-    print(os.listdir('.'))
-    print(event)
-    print(gh)
+    print(" pr opened ")
+    print(event.data)
+    pass
+
+@router.register("pull_request", action="closed")
+async def backport_pr(event, gh, *args, **kwargs):
+    print(" pr merged ")
+    print(event.data)
     pass

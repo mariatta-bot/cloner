@@ -54,21 +54,9 @@ async def main(request):
         traceback.print_exc(file=sys.stderr)
         return web.Response(status=500)
 
-async def clone_cpython():
-    """ Clone CPython, and set upstream remote"""
-    if not os.path.isdir("cpython"):
-        print("cloning")
-        result = subprocess.check_output(
-            "git clone https://github.com/mariatta/cpython.git".split())
-
-        print(result.decode('utf-8'))
-
-        result = subprocess.check_output("git remote add upstream https://github.com/mariatta/cpython.git".split())
-        print(result.decode('utf-8'))
 
 def set_remotes():
     os.chdir('cpython')
-    # print(os.listdir('.'))
     print(subprocess.check_output("git init .".split()).decode('utf-8'))
     print(subprocess.check_output(
         "git remote add origin https://github.com/mariatta/cpython.git".split()).decode(
@@ -89,6 +77,5 @@ if __name__ == "__main__":  # pragma: no cover
 
     web.run_app(app, port=port)
 
-    # clone_cpython()
 
 
