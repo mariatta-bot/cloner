@@ -23,11 +23,11 @@ async def main(request):
     try:
         body = await request.read()
         print(os.listdir('.'))
-        if not os.path.isdir("cpython"):
-            print("cloning")
-            result = subprocess.check_output("git clone https://github.com/mariatta/cpython.git".split())
-
-            print(result.decode('utf-8'))
+        # if not os.path.isdir("cpython"):
+        #     print("cloning")
+        #     result = subprocess.check_output("git clone https://github.com/mariatta/cpython.git".split())
+        #
+        #     print(result.decode('utf-8'))
         os.chdir('cpython')
         print(os.listdir('.'))
         print(subprocess.check_output("git remote --v".split()).decode('utf-8'))
@@ -55,6 +55,13 @@ async def main(request):
         traceback.print_exc(file=sys.stderr)
         return web.Response(status=500)
 
+async def clone_cpython():
+    if not os.path.isdir("cpython"):
+        print("cloning")
+        await subprocess.check_output(
+            "git clone https://github.com/mariatta/cpython.git".split())
+
+        # print(result.decode('utf-8'))
 
 if __name__ == "__main__":  # pragma: no cover
     app = web.Application()
@@ -63,3 +70,5 @@ if __name__ == "__main__":  # pragma: no cover
     if port is not None:
         port = int(port)
     web.run_app(app, port=port)
+    clone_cpython()
+
