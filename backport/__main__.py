@@ -31,8 +31,8 @@ async def main(request):
         os.chdir('strange-relationship')
         # print(os.listdir('.'))
         print(subprocess.check_output("git init .".split()).decode('utf-8'))
-        print(subprocess.check_output("git remote add origin https://github.com/mariatta/cpython.git".split()).decode('utf-8'))
-        print(subprocess.check_output("git remote add upstream https://github.com/mariatta/cpython.git".split()).decode('utf-8'))
+        print(subprocess.check_output("git remote add origin https://github.com/mariatta/strange-relationship.git".split()).decode('utf-8'))
+        print(subprocess.check_output("git remote add upstream https://github.com/mariatta/strange-relationship.git".split()).decode('utf-8'))
         # result = subprocess.check_output("git remote add upstream https://github.com/mariatta/cpython.git".split())
         # print(result.decode('utf-8'))
         print(subprocess.check_output("git remote --v".split()).decode('utf-8'))
@@ -71,13 +71,26 @@ async def clone_cpython():
         result = subprocess.check_output("git remote add upstream https://github.com/mariatta/cpython.git".split())
         print(result.decode('utf-8'))
 
-if __name__ == "__main__":  # pragma: no cover
+def set_remotes():
+    os.chdir('strange-relationship')
+    # print(os.listdir('.'))
+    print(subprocess.check_output("git init .".split()).decode('utf-8'))
+    print(subprocess.check_output(
+        "git remote add origin https://github.com/mariatta/strange-relationship.git".split()).decode(
+        'utf-8'))
+    print(subprocess.check_output(
+        "git remote add upstream https://github.com/mariatta/strange-relationship.git".split()).decode(
+        'utf-8'))
 
+
+if __name__ == "__main__":  # pragma: no cover
+    set_remotes()
     app = web.Application()
     app.router.add_post("/", main)
     port = os.environ.get("PORT")
     if port is not None:
         port = int(port)
+
     web.run_app(app, port=port)
 
     # clone_cpython()
