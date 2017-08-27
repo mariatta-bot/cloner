@@ -18,6 +18,14 @@ async def backport_pr(event, gh, *args, **kwargs):
 
 @router.register("pull_request", action="closed")
 async def backport_pr(event, gh, *args, **kwargs):
-    print(" pr merged ")
-    print(event.data)
-    pass
+    print(" pr closed ")
+    if event.data["pull_request"]["merged"]:
+        print(f"is merged {event.data['pull_request']['merged']}")
+        print(f"commit hash {event.data['pull_request']['merge_commit_sha']}")
+        issue = await gh.getitem(event.data['repository']['issues_url'],
+                                             {'number': event.data['pull_request']['number']})
+        print("ISSUES")
+        print(issue)
+        print("LABELS")
+        labels = await gh.getitem(issue['labels_url'])
+        print(labels)
