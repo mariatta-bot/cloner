@@ -11,18 +11,19 @@ router = gidgethub.routing.Router()
 @router.register("pull_request", action="opened")
 async def backport_pr(event, gh, *args, **kwargs):
     print(" pr opened ")
-    print(event.data)
+    # print(event.data)
     pass
 
 @router.register("pull_request", action="reopened")
 async def backport_pr(event, gh, *args, **kwargs):
     print(" pr reopened ")
-    print(event.data)
+    # print(event.data)
     pass
 
 @router.register("pull_request", action="closed")
 async def backport_pr(event, gh, *args, **kwargs):
     print(" pr closed ")
+    print(os.getcwd())
     if event.data["pull_request"]["merged"]:
         print(f"is merged {event.data['pull_request']['merged']}")
         print(f"commit hash {event.data['pull_request']['merge_commit_sha']}")
@@ -37,11 +38,11 @@ async def backport_pr(event, gh, *args, **kwargs):
         print(branches)
         for b in branches:
             branch_name = f"backport-{commit_hash[:7]}-{b}"
-            subprocess.check_output(f"git fetch upstream".split()).decode('utf-8')
-            subprocess.check_output(f"git checkout -b {branch_name}-{b} upstream/{b}".split()).decode('utf-8')
-            subprocess.check_output(f"git cherry-pick -x {commit_hash}".split()).decode('utf-8')
-            subprocess.check_output(f"git push origin {branch_name}".split()).decode('utf-8')
-            subprocess.check_output(f"git branch -D {branch_name}".split()).decode('utf-8')
+            print(subprocess.check_output(f"git fetch upstream".split()).decode('utf-8'))
+            print(subprocess.check_output(f"git checkout -b {branch_name}-{b} upstream/{b}".split()).decode('utf-8'))
+            print(subprocess.check_output(f"git cherry-pick -x {commit_hash}".split()).decode('utf-8'))
+            print(subprocess.check_output(f"git push origin {branch_name}".split()).decode('utf-8'))
+            print(subprocess.check_output(f"git branch -D {branch_name}".split()).decode('utf-8'))
             create_gh_pr(b, branch_name, gh_auth=os.getenv("GH_AUTH"))
 
 CPYTHON_CREATE_PR_URL = "https://api.github.com/repos/Mariatta/cpython/pulls"
