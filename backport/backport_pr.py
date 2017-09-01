@@ -37,22 +37,22 @@ async def backport_pr(event, gh, *args, **kwargs):
         print(branches)
         for b in branches:
             branch_name = f"backport-{commit_hash[:7]}-{b}"
-            subprocess.check_output(f"git fetch upstream")
+            subprocess.check_output(f"git fetch upstream".split()).decode('utf-8')
             subprocess.check_output(f"git checkout -b {branch_name}-{b} upstream/{b}".split()).decode('utf-8')
-            subprocess.check_output(f"git cherry-pick -x {commit_hash}")
-            subprocess.check_output(f"git push origin {branch_name}")
-            subprocess.check_output(f"git branch -D {branch_name}")
-            create_gh_pr(b, branch_name, os.getenv("GH_AUTH"))
+            subprocess.check_output(f"git cherry-pick -x {commit_hash}".split()).decode('utf-8')
+            subprocess.check_output(f"git push origin {branch_name}".split()).decode('utf-8')
+            subprocess.check_output(f"git branch -D {branch_name}".split()).decode('utf-8')
+            create_gh_pr(b, branch_name, gh_auth=os.getenv("GH_AUTH"))
 
 CPYTHON_CREATE_PR_URL = "https://api.github.com/repos/Mariatta/cpython/pulls"
 
-def create_gh_pr(self, base_branch, head_branch, *,
+def create_gh_pr(base_branch, head_branch, *,
                  gh_auth):
     """
     Create PR in GitHub
     """
     request_headers = sansio.create_headers(
-        self.username, oauth_token=gh_auth)
+        "Mariatta", oauth_token=gh_auth)
     title, body = "hi", "cherrypick pr by a bot"
 
     data = {
