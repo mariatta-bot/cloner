@@ -16,7 +16,7 @@ async def backport_pr(event, gh, *args, **kwargs):
     print('checking out master')
 
     # subprocess.check_output('git checkout master upstream/master'.split())
-    subprocess.check_output('git status')
+    subprocess.check_output('git status'.split())
     pass
 
 @router.register("pull_request", action="reopened")
