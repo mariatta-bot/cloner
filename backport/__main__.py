@@ -28,12 +28,12 @@ async def main(request):
         #     result = subprocess.check_output("git clone https://github.com/mariatta/cpython.git".split())
         #
         #     print(result.decode('utf-8'))
-        os.chdir('cpython')
+        # os.chdir('cpython')
         print(os.listdir('.'))
         print(subprocess.check_output("git remote --v".split()).decode('utf-8'))
         # print("done check output")
         # print(subprocess.check_output("git log 8ccc723920ee001fea48f5ede8b721c7f96f473d".split()).decode('utf-8'))
-        os.chdir('..')
+        # os.chdir('..')
 
         secret = os.environ.get("GH_SECRET")
         print(request.headers)
@@ -70,7 +70,7 @@ def set_remotes():
 if __name__ == "__main__":  # pragma: no cover
     set_remotes()
     print("remote set")
-    print(subprocess.check_output("git fetch upstream".split()).decode('utf-8'))
+    # print(subprocess.check_output("git fetch upstream".split()).decode('utf-8'))
     app = web.Application()
     app.router.add_post("/", main)
     port = os.environ.get("PORT")
