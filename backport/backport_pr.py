@@ -36,10 +36,11 @@ async def backport_pr(event, gh, *args, **kwargs):
         labels = await gh.getitem(issue['labels_url'])
         branches = [label['name'].split()[-1] for label in labels if label['name'].startswith("needs backport to")]
         print(branches)
+        print(subprocess.check_output(f"git fetch upstream".split()).decode('utf-8'))
+
         for b in branches:
             branch_name = f"backport-{commit_hash[:7]}-{b}"
-            print(subprocess.check_output(f"git fetch upstream".split()).decode('utf-8'))
-            print(subprocess.check_output(f"git checkout -b {branch_name}-{b} upstream/{b}".split()).decode('utf-8'))
+            print(subprocess.check_output(f"git checkout -b {branch_name} upstream/{b}".split()).decode('utf-8'))
             print(subprocess.check_output(f"git cherry-pick -x {commit_hash}".split()).decode('utf-8'))
             print(subprocess.check_output(f"git push origin {branch_name}".split()).decode('utf-8'))
             print(subprocess.check_output(f"git branch -D {branch_name}".split()).decode('utf-8'))
