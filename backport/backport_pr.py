@@ -15,7 +15,7 @@ async def backport_pr(event, gh, *args, **kwargs):
     print(subprocess.check_output("git branch".split()).decode('utf-8'))
     print('checking out master')
 
-    # subprocess.check_output('git checkout master upstream/master'.split())
+    subprocess.check_output('git checkout -b master upstream/master'.split())
     subprocess.check_output('git status'.split())
     pass
 
