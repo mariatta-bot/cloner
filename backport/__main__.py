@@ -70,9 +70,9 @@ def set_remotes():
 if __name__ == "__main__":  # pragma: no cover
     set_remotes()
     print("remote set")
-    os.chdir('cpython')
+    # os.chdir('cpython')
     print(subprocess.check_output("git fetch upstream".split()).decode('utf-8'))
-    os.chdir('..')
+    # os.chdir('..')
     app = web.Application()
     app.router.add_post("/", main)
     port = os.environ.get("PORT")
