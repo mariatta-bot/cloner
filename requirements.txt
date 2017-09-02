@@ -3,3 +3,5 @@ aiohttp
 gidgethub
 cachetools
 requests
+redis
+celery

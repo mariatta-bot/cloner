@@ -1,7 +1,0 @@
-[submodule "strange-relationship"]
-	path = strange-relationship
-	url = https://github.com/Mariatta/strange-relationship.git
-[submodule "cpython"]
-	path = cpython
-	url = https://github.com/mariatta/cpython.git
-	branch = master
