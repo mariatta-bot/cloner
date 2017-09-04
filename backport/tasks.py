@@ -57,7 +57,7 @@ def backport_task(commit_hash, branch):
     #
     # for b in branches:
     #     branch_name = f"backport-{commit_hash[:7]}-{b}"
-    print(subprocess.check_output(f"git checkout -b {branch_name} upstream/{b}".split()).decode('utf-8'))
+    print(subprocess.check_output(f"git checkout -b {branch_name} upstream/{branch_name}".split()).decode('utf-8'))
     print(subprocess.check_output(f"git cherry-pick -x {commit_hash}".split()).decode('utf-8'))
     print(subprocess.check_output(f"git push origin {branch_name}".split()).decode('utf-8'))
     print(subprocess.check_output(f"git branch -D {branch_name}".split()).decode('utf-8'))
