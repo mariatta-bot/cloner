@@ -2,8 +2,10 @@ import gidgethub.routing
 import cherry_picker
 import os
 import subprocess
-from gidgethub import sansio
 import requests
+
+from gidgethub import sansio
+from . import tasks
 
 
 router = gidgethub.routing.Router()
@@ -29,29 +31,31 @@ async def backport_pr(event, gh, *args, **kwargs):
 async def backport_pr(event, gh, *args, **kwargs):
     print(" pr closed ")
     print(os.getcwd())
+    # async_result = AsyncResult(task_id)
+    print("args")
+    print(args)
+    print("kwargs")
+    print(kwargs)
     if event.data["pull_request"]["merged"]:
         comment_on_pr(event, os.getenv('GH_AUTH'))
+        commit_hash = event.data['pull_request']['merge_commit_sha']
         # print(f"is merged {event.data['pull_request']['merged']}")
         # print(f"commit hash {event.data['pull_request']['merge_commit_sha']}")
         # commit_hash = event.data['pull_request']['merge_commit_sha']
-        # issue = await gh.getitem(event.data['repository']['issues_url'],
-        #                                      {'number': f"{event.data['pull_request']['number']}"})
+        issue = await gh.getitem(event.data['repository']['issues_url'],
+                                             {'number': f"{event.data['pull_request']['number']}"})
+
         # print("ISSUES")
         # print(issue)
         # print("LABELS")
-        # labels = await gh.getitem(issue['labels_url'])
-        # branches = [label['name'].split()[-1] for label in labels if label['name'].startswith("needs backport to")]
+        labels = await gh.getitem(issue['labels_url'])
+        branches = [label['name'].split()[-1] for label in labels if label['name'].startswith("needs backport to")]
         # print(branches)
         # print(subprocess.check_output(f"git fetch upstream".split()).decode('utf-8'))
         #
-        # for b in branches:
-        #     branch_name = f"backport-{commit_hash[:7]}-{b}"
-        #     print(subprocess.check_output(f"git checkout -b {branch_name} upstream/{b}".split()).decode('utf-8'))
-        #     print(subprocess.check_output(f"git cherry-pick -x {commit_hash}".split()).decode('utf-8'))
-        #     print(subprocess.check_output(f"git push origin {branch_name}".split()).decode('utf-8'))
-        #     print(subprocess.check_output(f"git branch -D {branch_name}".split()).decode('utf-8'))
-        #     create_gh_pr(b, branch_name, gh_auth=os.getenv("GH_AUTH"))
-        pass
+        for b in branches:
+            tasks.backport_task.delay(commit_hash, b)
+
 
 CPYTHON_CREATE_PR_URL = "https://api.github.com/repos/Mariatta/cpython/pulls"
 

@@ -57,27 +57,11 @@ async def main(request):
         return web.Response(status=500)
 
 
-def set_remotes():
-    # os.chdir('cpython')
-    # print(subprocess.check_output("git init .".split()).decode('utf-8'))
-    # print(subprocess.check_output(
-    #     "git remote add origin https://github.com/mariatta/cpython.git".split()).decode(
-    #     'utf-8'))
-    # print(subprocess.check_output(
-    #     "git remote add upstream https://github.com/mariatta/cpython.git".split()).decode(
-    #     'utf-8'))
-    # os.chdir('..')
-    pass
-
-
 if __name__ == "__main__":  # pragma: no cover
-    set_remotes()
-    tasks.clone_cpython.delay()
-
-    print("remote set")
-    # print(subprocess.check_output("git fetch upstream".split()).decode('utf-8'))
-
+    id = tasks.clone_cpython.delay()
+    print(f"kicked off clone cpython task: {id}")
     app = web.Application()
+    app['cpython_clone_id'] = id
     app.router.add_post("/", main)
     port = os.environ.get("PORT")
     if port is not None:
