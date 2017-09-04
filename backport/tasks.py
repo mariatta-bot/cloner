@@ -13,7 +13,7 @@ def clone_cpython():
     result = subprocess.check_output(
         "git clone https://github.com/mariatta-bot/cpython.git".split())
     print(result.decode('utf-8'))
-    os.chdir('.cpython')
+    os.chdir('./cpython')
     result = subprocess.check_output(
         "git remote add upstream https://github.com/mariatta/cpython.git".split())
     print(result.decode('utf-8'))
