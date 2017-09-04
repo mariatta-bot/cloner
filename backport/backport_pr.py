@@ -13,18 +13,35 @@ router = gidgethub.routing.Router()
 @router.register("pull_request", action="opened")
 async def backport_pr(event, gh, *args, **kwargs):
     print(" pr opened ")
-    # print(event.data)
-    print(subprocess.check_output("git branch".split()).decode('utf-8'))
-    print('checking out master')
+    print("event")
+    print(event)
+    print("gh")
+    print(gh)
+    print("args")
+    print(args)
+    print("kwargs")
+    print(kwargs)
 
-    subprocess.check_output('git checkout -b master upstream/master'.split())
-    subprocess.check_output('git status'.split())
+    # print(event.data)
+    # print(subprocess.check_output("git branch".split()).decode('utf-8'))
+    # print('checking out master')
+
+    # subprocess.check_output('git checkout -b master upstream/master'.split())
+    # subprocess.check_output('git status'.split())
     pass
 
 @router.register("pull_request", action="reopened")
 async def backport_pr(event, gh, *args, **kwargs):
     print(" pr reopened ")
-    # print(event.data)
+    print(" pr opened ")
+    print("event")
+    print(event)
+    print("gh")
+    print(gh)
+    print("args")
+    print(args)
+    print("kwargs")
+    print(kwargs)
     pass
 
 @router.register("pull_request", action="closed")
