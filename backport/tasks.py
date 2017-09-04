@@ -23,7 +23,7 @@ def clone_cpython():
     result = subprocess.check_output("git config --global user.email 'mariatta@pycascades.com'".split())
     print(result.decode('utf-8'))
     print("set up git config global")
-    result = subprocess.check_output("git config --global user.name 'Miss Islington (bot)'")
+    result = subprocess.check_output("git config --global user.name 'Miss Islington (bot)'".split())
     print(result.decode('utf-8'))
     print("set up git config username")
     os.chdir('./cpython')
