@@ -56,16 +56,16 @@ async def main(request):
 
 
 def set_remotes():
-    os.chdir('cpython')
-    print(subprocess.check_output("git init .".split()).decode('utf-8'))
-    print(subprocess.check_output(
-        "git remote add origin https://github.com/mariatta/cpython.git".split()).decode(
-        'utf-8'))
-    print(subprocess.check_output(
-        "git remote add upstream https://github.com/mariatta/cpython.git".split()).decode(
-        'utf-8'))
+    # os.chdir('cpython')
+    # print(subprocess.check_output("git init .".split()).decode('utf-8'))
+    # print(subprocess.check_output(
+    #     "git remote add origin https://github.com/mariatta/cpython.git".split()).decode(
+    #     'utf-8'))
+    # print(subprocess.check_output(
+    #     "git remote add upstream https://github.com/mariatta/cpython.git".split()).decode(
+    #     'utf-8'))
     # os.chdir('..')
-
+    pass
 
 if __name__ == "__main__":  # pragma: no cover
     set_remotes()

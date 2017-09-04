@@ -30,28 +30,53 @@ async def backport_pr(event, gh, *args, **kwargs):
     print(" pr closed ")
     print(os.getcwd())
     if event.data["pull_request"]["merged"]:
-        print(f"is merged {event.data['pull_request']['merged']}")
-        print(f"commit hash {event.data['pull_request']['merge_commit_sha']}")
-        commit_hash = event.data['pull_request']['merge_commit_sha']
-        issue = await gh.getitem(event.data['repository']['issues_url'],
-                                             {'number': f"{event.data['pull_request']['number']}"})
-        print("ISSUES")
-        print(issue)
-        print("LABELS")
-        labels = await gh.getitem(issue['labels_url'])
-        branches = [label['name'].split()[-1] for label in labels if label['name'].startswith("needs backport to")]
-        print(branches)
-        print(subprocess.check_output(f"git fetch upstream".split()).decode('utf-8'))
-
-        for b in branches:
-            branch_name = f"backport-{commit_hash[:7]}-{b}"
-            print(subprocess.check_output(f"git checkout -b {branch_name} upstream/{b}".split()).decode('utf-8'))
-            print(subprocess.check_output(f"git cherry-pick -x {commit_hash}".split()).decode('utf-8'))
-            print(subprocess.check_output(f"git push origin {branch_name}".split()).decode('utf-8'))
-            print(subprocess.check_output(f"git branch -D {branch_name}".split()).decode('utf-8'))
-            create_gh_pr(b, branch_name, gh_auth=os.getenv("GH_AUTH"))
+        comment_on_pr(event, os.getenv('GH_AUTH'))
+        # print(f"is merged {event.data['pull_request']['merged']}")
+        # print(f"commit hash {event.data['pull_request']['merge_commit_sha']}")
+        # commit_hash = event.data['pull_request']['merge_commit_sha']
+        # issue = await gh.getitem(event.data['repository']['issues_url'],
+        #                                      {'number': f"{event.data['pull_request']['number']}"})
+        # print("ISSUES")
+        # print(issue)
+        # print("LABELS")
+        # labels = await gh.getitem(issue['labels_url'])
+        # branches = [label['name'].split()[-1] for label in labels if label['name'].startswith("needs backport to")]
+        # print(branches)
+        # print(subprocess.check_output(f"git fetch upstream".split()).decode('utf-8'))
+        #
+        # for b in branches:
+        #     branch_name = f"backport-{commit_hash[:7]}-{b}"
+        #     print(subprocess.check_output(f"git checkout -b {branch_name} upstream/{b}".split()).decode('utf-8'))
+        #     print(subprocess.check_output(f"git cherry-pick -x {commit_hash}".split()).decode('utf-8'))
+        #     print(subprocess.check_output(f"git push origin {branch_name}".split()).decode('utf-8'))
+        #     print(subprocess.check_output(f"git branch -D {branch_name}".split()).decode('utf-8'))
+        #     create_gh_pr(b, branch_name, gh_auth=os.getenv("GH_AUTH"))
+        pass
 
 CPYTHON_CREATE_PR_URL = "https://api.github.com/repos/Mariatta/cpython/pulls"
+
+
+def comment_on_pr(event, gh_auth):
+    request_headers = sansio.create_headers(
+        "Mariatta", oauth_token=gh_auth)
+    issue_number = event['pull_request']['number']
+    merged_by = event['pull_request']['merged_by']
+    created_by = event['pull_request']['user']
+
+    issue_comment_url = f"https://api.github.com/repos/Mariatta/cpython/issues/{issue_number}/comments"
+    data = {
+        "body": f"Thanks @{created_by} for the PR, and @{merged_by} for merging it.  I will now backport this PR.",
+    }
+    response = requests.post(issue_comment_url,
+                             headers=request_headers,
+                             json=data)
+    if response.status_code == requests.codes.created:
+        print(f"Commented at {response.json()['url']}")
+    else:
+        print(response.status_code)
+        print(response.text)
+
+
 
 def create_gh_pr(base_branch, head_branch, *,
                  gh_auth):
