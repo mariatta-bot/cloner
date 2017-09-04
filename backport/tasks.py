@@ -86,7 +86,7 @@ def create_gh_pr(base_branch, head_branch, *,
     data = {
         "title": title,
         "body": body,
-        "head": f"Mariatta:{head_branch}",
+        "head": f"mariatta-bot:{head_branch}",
         "base": base_branch,
         "maintainer_can_modify": True
     }
