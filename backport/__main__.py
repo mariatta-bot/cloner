@@ -2,7 +2,7 @@ import asyncio
 import os
 import sys
 import traceback
-import tasks
+from .backport_pr import tasks
 
 
 import aiohttp
