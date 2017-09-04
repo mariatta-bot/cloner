@@ -58,10 +58,10 @@ CPYTHON_CREATE_PR_URL = "https://api.github.com/repos/Mariatta/cpython/pulls"
 
 def comment_on_pr(event, gh_auth):
     request_headers = sansio.create_headers(
-        "Mariatta", oauth_token=gh_auth)
+        "mariatta-bot", oauth_token=gh_auth)
     issue_number = event.data['pull_request']['number']
-    merged_by = event.data['pull_request']['merged_by']
-    created_by = event.data['pull_request']['user']
+    merged_by = event.data['pull_request']['merged_by']['login']
+    created_by = event.data['pull_request']['user']['login']
 
     issue_comment_url = f"https://api.github.com/repos/Mariatta/cpython/issues/{issue_number}/comments"
     data = {
@@ -84,7 +84,7 @@ def create_gh_pr(base_branch, head_branch, *,
     Create PR in GitHub
     """
     request_headers = sansio.create_headers(
-        "Mariatta", oauth_token=gh_auth)
+        "mariatta-bot", oauth_token=gh_auth)
     title, body = "hi", "cherrypick pr by a bot"
 
     data = {
