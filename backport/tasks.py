@@ -33,7 +33,10 @@ def clone_cpython():
 @app.task
 def backport_task(commit_hash, branch):
     """Backport a commit into a branch. Wait until cpython has been successfully cloned."""
-
+    print("current dir")
+    print(os.getcwd())
+    print("listdir")
+    print(os.listdir("."))
     print(f"backporting {commit_hash} {branch}")
     branch_name = f"backport-{commit_hash[:7]}-{branch}"
     print(subprocess.check_output(f"git fetch upstream".split()).decode('utf-8'))
