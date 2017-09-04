@@ -69,9 +69,11 @@ def set_remotes():
     # os.chdir('..')
     pass
 
+
 if __name__ == "__main__":  # pragma: no cover
     set_remotes()
-    tasks.add.delay(1,2)
+    tasks.clone_cpython.delay()
+
     print("remote set")
     # print(subprocess.check_output("git fetch upstream".split()).decode('utf-8'))
 
