@@ -20,6 +20,12 @@ def clone_cpython():
     result = subprocess.check_output(
         f"git clone https://{os.environ.get('GH_SECRET')}:x-oauth-basic@github.com/mariatta-bot/cpython.git".split())
     print(result.decode('utf-8'))
+    result = subprocess.check_output("git config --global user.email 'mariatta@pycascades.com'".split())
+    print(result.decode('utf-8'))
+    print("set up git config global")
+    result = subprocess.check_output("git config --global user.name 'Miss Islington (bot)'")
+    print(result.decode('utf-8'))
+    print("set up git config username")
     os.chdir('./cpython')
     print("setting upstream")
     result = subprocess.check_output(
