@@ -78,6 +78,7 @@ def create_gh_pr(base_branch, head_branch, *,
     """
     Create PR in GitHub
     """
+    print(f'creating PR: base {base_branch} head {head_branch}')
     request_headers = sansio.create_headers(
         "mariatta-bot", oauth_token=gh_auth)
     title, body = f"[{base_branch}] cherry-pick PR by a bot", "hello"
@@ -89,6 +90,9 @@ def create_gh_pr(base_branch, head_branch, *,
         "base": base_branch,
         "maintainer_can_modify": True
     }
+
+    print("data")
+    print(data)
     response = requests.post(CPYTHON_CREATE_PR_URL,
                              headers=request_headers, json=data)
     if response.status_code == requests.codes.created:
