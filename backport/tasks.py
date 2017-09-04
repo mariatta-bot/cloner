@@ -35,7 +35,7 @@ def clone_cpython():
 def backport_task(commit_hash, branch):
     """Backport a commit into a branch. Wait until cpython has been successfully cloned."""
     print("current dir")
-    print(os.getcwd())
+    print(os.chdir("./cpython"))
     print("listdir")
     print(os.listdir("."))
     print(f"backporting {commit_hash} {branch}")
