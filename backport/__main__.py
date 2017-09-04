@@ -2,6 +2,8 @@ import asyncio
 import os
 import sys
 import traceback
+import tasks
+
 
 import aiohttp
 from aiohttp import web
@@ -69,8 +71,10 @@ def set_remotes():
 
 if __name__ == "__main__":  # pragma: no cover
     set_remotes()
+    tasks.add.delay(1,2)
     print("remote set")
     # print(subprocess.check_output("git fetch upstream".split()).decode('utf-8'))
+
     app = web.Application()
     app.router.add_post("/", main)
     port = os.environ.get("PORT")
