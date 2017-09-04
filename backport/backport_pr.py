@@ -59,9 +59,9 @@ CPYTHON_CREATE_PR_URL = "https://api.github.com/repos/Mariatta/cpython/pulls"
 def comment_on_pr(event, gh_auth):
     request_headers = sansio.create_headers(
         "Mariatta", oauth_token=gh_auth)
-    issue_number = event['pull_request']['number']
-    merged_by = event['pull_request']['merged_by']
-    created_by = event['pull_request']['user']
+    issue_number = event.data['pull_request']['number']
+    merged_by = event.data['pull_request']['merged_by']
+    created_by = event.data['pull_request']['user']
 
     issue_comment_url = f"https://api.github.com/repos/Mariatta/cpython/issues/{issue_number}/comments"
     data = {
