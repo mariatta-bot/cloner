@@ -29,7 +29,7 @@ def clone_cpython():
     os.chdir('./cpython')
     print("setting upstream")
     result = subprocess.check_output(
-        "git remote add upstream https://{os.environ.get('GH_SECRET'')}:x-oauth-basic@github.com/mariatta/cpython.git".split())
+        f"git remote add upstream https://{os.environ.get('GH_SECRET')}:x-oauth-basic@github.com/mariatta/cpython.git".split())
     print(result.decode('utf-8'))
 
     print("finished cloning")
