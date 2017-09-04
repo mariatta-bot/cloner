@@ -66,6 +66,10 @@ def backport_task(commit_hash, branch):
     print(subprocess.check_output(f"git checkout -b {branch_name} upstream/{branch}".split()).decode('utf-8'))
     print(subprocess.check_output(f"git cherry-pick -x {commit_hash}".split()).decode('utf-8'))
     print(subprocess.check_output(f"git push origin {branch_name}".split()).decode('utf-8'))
+
+    print(subprocess.check_output(
+        f"git checkout master".split()).decode('utf-8'))
+
     print(subprocess.check_output(f"git branch -D {branch_name}".split()).decode('utf-8'))
     create_gh_pr(branch, branch_name, gh_auth=os.getenv("GH_AUTH"))
 
