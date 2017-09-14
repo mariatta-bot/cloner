@@ -14,7 +14,7 @@ router = gidgethub.routing.Router()
 async def backport_pr(event, gh, *args, **kwargs):
     print(" state change ")
     print("event")
-    print(event)
+    print(event.data)
 
 
     # print(event.data)
