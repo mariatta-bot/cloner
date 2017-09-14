@@ -18,8 +18,6 @@ from . import backport_pr
 router = routing.Router(backport_pr.router)
 cache = cachetools.LRUCache(maxsize=500)
 
-import subprocess
-
 
 async def main(request):
     try:

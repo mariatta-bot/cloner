@@ -49,6 +49,11 @@ async def backport_pr(event, gh, *args, **kwargs):
     print(" pr closed ")
     print(os.getcwd())
     # async_result = AsyncResult(task_id)
+    print("event")
+    print(dir(event))
+    print("gh")
+    print(dir(gh))
+
     print("args")
     print(args)
     print("kwargs")
