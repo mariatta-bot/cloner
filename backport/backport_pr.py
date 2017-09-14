@@ -30,7 +30,7 @@ async def backport_pr(event, gh, *args, **kwargs):
 async def backport_pr(event, gh, *args, **kwargs):
     print(" pr opened ")
     print("event")
-    print(event)
+    print(event.data)
     print("gh")
     print(gh)
     print("args")
@@ -51,7 +51,7 @@ async def backport_pr(event, gh, *args, **kwargs):
     print(" pr reopened ")
     print(" pr opened ")
     print("event")
-    print(event)
+    print(event.data)
     print("gh")
     print(gh)
     print("args")
