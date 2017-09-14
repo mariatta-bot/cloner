@@ -10,6 +10,22 @@ from . import tasks
 
 router = gidgethub.routing.Router()
 
+@router.register("state")
+async def backport_pr(event, gh, *args, **kwargs):
+    print(" state change ")
+    print("event")
+    print(event)
+
+
+    # print(event.data)
+    # print(subprocess.check_output("git branch".split()).decode('utf-8'))
+    # print('checking out master')
+
+    # subprocess.check_output('git checkout -b master upstream/master'.split())
+    # subprocess.check_output('git status'.split())
+    pass
+
+
 @router.register("pull_request", action="opened")
 async def backport_pr(event, gh, *args, **kwargs):
     print(" pr opened ")
