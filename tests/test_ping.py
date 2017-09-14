@@ -1,7 +1,7 @@
 from aiohttp import web
 import pytest
 
-from bedevere import __main__ as main
+from backport import __main__ as main
 
 
 async def test_ping(test_client):
